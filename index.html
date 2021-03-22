@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <style>
+        * {
+  padding: 0px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 600px;
+  margin: auto;
+  border-radius: 10px;
+  margin-top: 40px;
+  overflow: hidden;
+  position: relative;
+}
+
+.images-slide {
+  display: flex;
+  width: 100%;
+  height: 500px;
+}
+
+#prevButt {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  left: 3%;
+  font-size: 50px;
+  color: white;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+#nextButt {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  right: 3%;
+  font-size: 50px;
+  color: white;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <i class="fas fa-arrow-left" id="prevButt"></i>
+        <i class="fas fa-arrow-right" id="nextButt"></i>
+        <div class="images-slide">
+            <img src="7.jpg" id="lastClone" alt="">
+            <img src="1.jpg" alt="">
+            <img src="2.jpg" alt="">
+            <img src="4.jpg" alt="">
+            <img src="7.jpg" alt="">
+            <img src="1.jpg" id="firstClone" alt="">
+        </div>
+    </div>
+    <script>
+   const jsSlide = document.querySelector(".images-slide");
+console.log(jsSlide);
+const jsImages = document.querySelectorAll(".images-slide img");
+const prevButt = document.querySelector("#prevButt");
+const nextButt = document.querySelector("#nextButt");
+let counter = 1;
+setInterval(() => {
+  if (counter >= jsImages.length - 1) return;
+  jsSlide.style.transition = "transform 0.5s ease-in-out";
+  counter++;
+  jsSlide.style.transform = "translateX(" + -size * counter + "px)";
+}, 1500);
+
+const size = jsImages[0].clientWidth;
+
+jsSlide.style.transform = "translateX(" + -size * counter + "px)";
+
+nextButt.addEventListener("click", () => {
+  if (counter >= jsImages.length - 1) return;
+  jsSlide.style.transition = "transform 0.5s ease-in-out";
+  counter++;
+  jsSlide.style.transform = "translateX(" + -size * counter + "px)";
+});
+
+prevButt.addEventListener("click", () => {
+  if (counter <= 0) return;
+  jsSlide.style.transition = "transform 0.5s ease-in-out";
+  counter--;
+  jsSlide.style.transform = "translateX(" + -size * counter + "px)";
+});
+
+jsSlide.addEventListener("transitionend", () => {
+  if (jsImages[counter].id === "lastClone") {
+    jsSlide.style.transition = "none";
+    counter = jsImages.length - 2;
+    jsSlide.style.transform = "translateX(" + -size * counter + "px)";
+  }
+
+  if (jsImages[counter].id === "firstClone") {
+    jsSlide.style.transition = "none";
+    counter = jsImages.length - counter;
+    jsSlide.style.transform = "translateX(" + -size * counter + "px)";
+  }
+});
+
+    </script>
+</body>
+</html>
